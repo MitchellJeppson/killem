@@ -3,13 +3,38 @@ import {render} from "react-dom";
 import {Client} from "boardgame.io/react";
 import {TicTacToe} from "./game";
 import * as THREE from "three";
-import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
+import OrbitControls from './OrbitControls';
 import sceneJson from './scene';
 
 class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.controls = undefined;
+    this.keyDownHandler = this.keyDownHandler.bind(this);
+    this.keyUpHandler = this.keyUpHandler.bind(this);
+  }
   state = {
     playerID: null
   };
+
+  keyDownHandler = (event) => {
+
+    if (event.which === 17) {
+      event.preventDefault();
+      event.stopPropagation();
+      this.controls.enabled = true;
+    }
+  }
+
+  keyUpHandler = (event) => {
+    if (event.which === 17) {
+      event.preventDefault();
+      event.stopPropagation();
+      this.controls.enabled = false;
+    }
+  }
 
   componentDidMount() {
 
@@ -22,18 +47,6 @@ class App extends React.Component {
     });
 
     const scene = new THREE.ObjectLoader().parse(sceneJson);
-
-    document.addEventListener('keydown', (e) => {
-      if (e.code.startsWith("Control")) {
-        controls.enabled = true;
-      }
-    });
-
-    document.addEventListener('keyup', (e) => {
-      if (e.code.startsWith("Control")) {
-        controls.enabled = false;
-      }
-    });
 
     scene.traverse(function(child) {
       if (child.name.startsWith("MoveTile") || child.name.startsWith("Home")) {
@@ -57,34 +70,39 @@ class App extends React.Component {
     camera.position.set(0, 20, 20);
     camera.rotation.x = -30 * Math.PI / 180;
 
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.screenSpacePanning = false;
-    controls.minDistance = 15;
-    controls.maxDistance = 40;
-    controls.maxPolarAngle = Math.PI / 2.6;
-    controls.minPolarAngle = Math.PI / 6;
-    controls.enabled = false;
+    this.controls = new OrbitControls(camera, renderer.domElement);
+    this.controls.screenSpacePanning = false;
+    this.controls.maxDistance = 40;
+    this.controls.minDistance = 17;
+    this.controls.maxPolarAngle = Math.PI / 2.6;
+    this.controls.minPolarAngle = Math.PI / 6;
+    this.controls.enabled = false;
+    this.controls.panEnabled = false;
 
-    // ANIMATION LOGGIC
-    let rotation = 0;
+    console.log(KillEmClient);
+    const {G} = KillEmClient.getState();
 
     var animate = () => {
       requestAnimationFrame(animate);
-
-      // const { G } = KillEmClient.getState();
 
       scene.traverse((child) => {
         if (child.name.startsWith("marble") && child.userData.animate === true) {}
       });
 
-      controls.update();
+      this.controls.update();
       renderer.render(scene, camera);
     }
     animate();
 
   }
   render() {
-    return (< div ref = {
+    return (< div style = {{overflowX:"hidden", overflowY:"hidden"}}onKeyDown = {
+      this.keyDownHandler
+    }
+    onKeyUp = {
+      this.keyUpHandler
+    }
+    ref = {
       ref => (this.mount = ref)
     } />);
   }
