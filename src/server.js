@@ -1,7 +1,7 @@
 // src/server.js
-const Server = require("boardgame.io/server");
-const TicTacToe = require("./game").TicTacToe;
-const server = Server({ games: [TicTacToe] });
+const Server = require("boardgame.io/dist/server").Server;
+const KillEm = require("./game").KillEm;
+const server = Server({ games: [KillEm] });
 server.run(8000, () => console.log("Running on port 8000"));
 
 /*
