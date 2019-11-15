@@ -1,35 +1,49 @@
 function IsVictory(cells) {
-  const positions = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-  ];
-
-  for (let pos of positions) {
-    const symbol = cells[pos[0]];
-    let winner = symbol;
-    for (let i of pos) {
-      if (cells[i] !== symbol) {
-        winner = null;
-        break;
-      }
-    }
-    if (winner != null) return true;
-  }
-
+  //TODO: obviously implement this method
   return false;
 }
 
-export const TicTacToe = {
-  name: "tic-tac-toe",
+export const KillEm = {
+  name: "KillEm",
 
   setup: () => ({
-    cells: Array(9).fill(null)
+    currentTurn: 0,
+    players: [
+      {
+        playerNumber: 0,
+        color: 0x00ff00,
+        username: "",
+        marbles: [undefined, undefined, undefined, undefined],
+        transparentMarble: [undefined, undefined, undefined],
+        startingTile: "MoveTile14"
+      },
+      {
+        playerNumber: 1,
+        color: 0xff0000,
+        username: "",
+        marbles: [undefined, undefined, undefined, undefined],
+        transparentMarble: [undefined, undefined, undefined],
+        startingTile: "MoveTile25"
+      },
+      {
+        playerNumber: 2,
+        color: 0x0000ff,
+        username: "",
+        marbles: [undefined, undefined, undefined, undefined],
+        transparentMarble: [undefined, undefined, undefined],
+        startingTile: "MoveTile36"
+      },
+      {
+        playerNumber: 3,
+        color: 0xffff00,
+        username: "",
+        marbles: [undefined, undefined, undefined, undefined],
+        transparentMarble: [undefined, undefined, undefined],
+        startingTile: "MoveTile3"
+      }
+    ],
+    dieOne: 0,
+    dieTwo: 0
   }),
 
   moves: {
@@ -37,17 +51,20 @@ export const TicTacToe = {
       if (G.cells[id] === null) {
         G.cells[id] = ctx.currentPlayer;
       }
+    },
+
+    rollDice(G, ctx, dieOne, dieTwo) {},
+
+    updateMarblePosition(G, ctx, playerNumber, marbleNumber, position) {
+      G.players[playerNumber].marbles[marbleNumber].position = position;
     }
   },
 
   turn: { moveLimit: 1 },
 
   endIf: (G, ctx) => {
-    if (IsVictory(G.cells)) {
+    if (IsVictory(G.players)) {
       return { winner: ctx.currentPlayer };
-    }
-    if (G.cells.filter(c => c === null).length === 0) {
-      return { draw: true };
     }
   }
 };

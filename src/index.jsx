@@ -1,35 +1,38 @@
 import React from "react";
 import { render } from "react-dom";
 import { Client } from "boardgame.io/client";
-import { TicTacToe } from "./game";
+import { KillEm } from "./game";
 import HeadsUpDisplay from "./HeadsUpDisplay";
 import Controls, * as controlsCallbacks from "./three/GameControls";
 import Camera from "./three/GameCamera";
 import Scene from "./three/GameScene";
 import Renderer from "./three/GameRenderer";
+import GameInitializer from "./GameInitializer";
+import Raycaster from "./Raycaster";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.controls = undefined;
   }
-  state = {
-    playerID: null
-  };
 
   componentDidMount() {
     const KillEmClient = Client({
-      game: TicTacToe,
+      game: KillEm,
       debug: true,
       multiplayer: {
         server: "http://18.224.209.168:8000"
-      }
+      },
+      numPlayers: 4
     });
 
     const scene = new Scene();
     const renderer = new Renderer(this);
     const camera = new Camera();
     this.controls = new Controls(camera, renderer);
+    new Raycaster(scene, camera);
+
+    new GameInitializer().initialize();
 
     var animate = () => {
       requestAnimationFrame(animate);
