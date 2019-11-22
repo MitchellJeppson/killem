@@ -2,7 +2,7 @@
   "name": "game",
   "version": "0.1.0",
   "private": true,
-  "main": "index.jsx",
+  "main": "GameLobby.jsx",
   "dependencies": {
     "boardgame.io": "^0.34.1",
     "esm": "^3.2.25",

@@ -3,7 +3,7 @@ function IsVictory(cells) {
   return false;
 }
 
-export const KillEm = {
+const KillEm = {
   name: "KillEm",
 
   setup: () => ({
@@ -68,3 +68,5 @@ export const KillEm = {
     }
   }
 };
+
+export { KillEm };
