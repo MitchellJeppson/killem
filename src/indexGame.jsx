@@ -21,7 +21,7 @@ class App extends React.Component {
       game: KillEm,
       debug: true,
       multiplayer: {
-        server: "172.28.153.39:8000"
+        server: "http://172.28.153.39:8000"
       },
       numPlayers: 4
     });

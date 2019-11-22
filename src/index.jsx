@@ -10,8 +10,8 @@ class App extends React.Component {
   render() {
     return (
       <Lobby
-        gameServer="172.28.153.39:8000"
-        lobbyServer="172.28.153.39:8000"
+        gameServer="http://172.28.153.39:8000"
+        lobbyServer="http://172.28.153.39:8000"
         gameComponents={[{ game: KillEm }]}
       />
     );
