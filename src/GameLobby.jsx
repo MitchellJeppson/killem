@@ -9,8 +9,8 @@ class KillEmLobby extends React.Component {
   render() {
     return (
       <Lobby
-        gameServer="172.28.153.39:8000"
-        lobbyServer="172.28.153.39:8000"
+        gameServer="172.16.36.74:8000"
+        lobbyServer="172.16.36.74:8000"
         gameComponents={[KillEm]}
       />
     );

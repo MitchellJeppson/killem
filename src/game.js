@@ -43,7 +43,8 @@ const KillEm = {
       }
     ],
     dieOne: 0,
-    dieTwo: 0
+    dieTwo: 0,
+    isDoneWithSetup: false
   }),
 
   moves: {
@@ -61,6 +62,19 @@ const KillEm = {
   },
 
   turn: { moveLimit: 1 },
+
+  phases: {
+    setup: {
+      onBegin: (G, ctx) => G,
+      endIf: G => G.isDoneWithSetup,
+      next: "main",
+      start: true
+    },
+
+    main: {},
+
+    final: {}
+  },
 
   endIf: (G, ctx) => {
     if (IsVictory(G.players)) {

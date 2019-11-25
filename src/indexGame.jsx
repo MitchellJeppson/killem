@@ -1,5 +1,4 @@
 import React from "react";
-import { render } from "react-dom";
 import { Client } from "boardgame.io/client";
 import { KillEm } from "./game";
 import HeadsUpDisplay from "./HeadsUpDisplay";
@@ -10,7 +9,7 @@ import Renderer from "./three/GameRenderer";
 import GameInitializer from "./GameInitializer";
 import Raycaster from "./Raycaster";
 
-class App extends React.Component {
+class KillEmBoard extends React.Component {
   constructor(props) {
     super(props);
     this.controls = undefined;
@@ -21,9 +20,9 @@ class App extends React.Component {
       game: KillEm,
       debug: true,
       multiplayer: {
-        server: "http://172.28.153.39:8000"
+        server: "http://172.16.36.74:8000"
       },
-      numPlayers: 4
+      numPlayers: 2
     });
 
     const scene = new Scene();
@@ -61,4 +60,4 @@ class App extends React.Component {
   }
 }
 
-render(<App />, document.getElementById("root"));
+export default KillEmBoard;
