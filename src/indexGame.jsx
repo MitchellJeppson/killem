@@ -8,20 +8,22 @@ import Scene from "./three/GameScene";
 import Renderer from "./three/GameRenderer";
 import GameInitializer from "./GameInitializer";
 import Raycaster from "./Raycaster";
+import { SocketIO } from "boardgame.io/multiplayer";
 
 class KillEmBoard extends React.Component {
   constructor(props) {
     super(props);
-    this.controls = undefined;
+    // this.controls = undefined;
   }
 
   componentDidMount() {
     const KillEmClient = Client({
       game: KillEm,
       debug: true,
-      multiplayer: {
-        server: "http://172.16.36.74:8000"
-      },
+      multiplayer: SocketIO({ server: "https://localhost:8000" }),
+      // multiplayer: {
+      //   server: "http://localhost:8000"
+      // }
       numPlayers: 2
     });
 
@@ -31,7 +33,7 @@ class KillEmBoard extends React.Component {
     this.controls = new Controls(camera, renderer);
     new Raycaster(scene, camera);
 
-    new GameInitializer().initialize();
+    KillEmClient.moves.setupGame();
 
     var animate = () => {
       requestAnimationFrame(animate);

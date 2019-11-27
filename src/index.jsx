@@ -12,8 +12,8 @@ class App extends React.Component {
   render() {
     return (
       <Lobby
-        gameServer="http://172.16.36.74:8000"
-        lobbyServer="http://172.16.36.74:8000"
+        gameServer="http://localhost:8000"
+        lobbyServer="http://localhost:8000"
         gameComponents={[{ game: KillEm, board: KillEmBoard }]}
       />
     );

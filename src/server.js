@@ -1,5 +1,5 @@
 // src/server.js
-const Server = require("boardgame.io/dist/server").Server;
+const Server = require("boardgame.io/server").Server;
 const KillEm = require("./game").KillEm;
 
 console.log(KillEm);

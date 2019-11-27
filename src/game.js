@@ -48,6 +48,12 @@ const KillEm = {
   }),
 
   moves: {
+    setupGame(G, ctx) {
+      console.log("inside setupGame");
+      console.log(G);
+      console.log(ctx);
+    },
+
     clickCell(G, ctx, id) {
       if (G.cells[id] === null) {
         G.cells[id] = ctx.currentPlayer;
@@ -63,18 +69,18 @@ const KillEm = {
 
   turn: { moveLimit: 1 },
 
-  phases: {
-    setup: {
-      onBegin: (G, ctx) => G,
-      endIf: G => G.isDoneWithSetup,
-      next: "main",
-      start: true
-    },
-
-    main: {},
-
-    final: {}
-  },
+  // phases: {
+  //   setup: {
+  //     onBegin: (G, ctx) => G,
+  //     endIf: G => G.isDoneWithSetup,
+  //     next: "main",
+  //     start: true
+  //   },
+  //
+  //   main: {},
+  //
+  //   final: {}
+  // },
 
   endIf: (G, ctx) => {
     if (IsVictory(G.players)) {
